@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Editar libro</title>
+</h:head>
+<body>
+	<h:form enctype="multipart/form-data">
+		<h:panelGrid columns="2" cellspacing="20" border="1">
+			<f:facet name="header">
+				<h:outputText value="Editar libro"></h:outputText>
+			</f:facet>
+
+			<h:graphicImage value="#{biblioteca.imagen}" />
+			<h:form name="Formulario" method="post" enctype="multipart/form-data">
+				<h:inputFile value="#{biblioteca.imagen}"></h:inputFile>
+			</h:form>
+
+			<h:outputText value="Titulo"></h:outputText>
+			<h:inputText value="#{biblioteca.titulo}"></h:inputText>
+
+			<h:outputText value="Autor"></h:outputText>
+			<h:inputText value="#{biblioteca.autor}"></h:inputText>
+
+
+			<h:outputText value="Genero"></h:outputText>
+			<h:inputText value="#{biblioteca.genero}"></h:inputText>
+
+			<h:outputText value="Tipo"></h:outputText>
+			<h:inputText value="#{biblioteca.tipo}"></h:inputText>
+			
+			<h:outputText value="Editorial"></h:outputText>
+			<h:inputText value="#{biblioteca.editorial}"></h:inputText>
+
+			<f:facet name="footer">
+				<h:commandButton type="submit" action="#{bibliotecaBean.actualizar(biblioteca)}" value="Actualizar"></h:commandButton>
+			</f:facet>
+			
+		</h:panelGrid>
+
+	</h:form>
+
+</body>
+</html>
