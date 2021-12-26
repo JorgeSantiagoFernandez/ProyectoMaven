@@ -7,11 +7,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.ecodeup.model.Biblioteca;
-import com.ecodeup.model.Login;
+import com.ecodeup.model.Usuario;
 import com.ecodeup.model.JPAUtil;
 
 public class BibliotecaDAO {
 	EntityManager entity=JPAUtil.getEntityManagerFactory().createEntityManager();
+	private Usuario usuario = new Usuario();
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 	public void guardar(Biblioteca biblioteca) {
 		entity.getTransaction().begin();
@@ -45,6 +54,18 @@ public class BibliotecaDAO {
 		listaBiblioteca = q.getResultList();
 		return listaBiblioteca;
 	}
-
-
+	
+	public Usuario verificarDatos(Usuario usuario) throws Exception {
+		Usuario us = null;
+		try {
+			Query q = entity.createQuery("FROM Usuario WHERE user = "+usuario.getUser()+ 
+					"and password = "+usuario.getPassword());
+			if(!q.getResultList().isEmpty())
+				us = (Usuario) q.getResultList().get(0);
+		}
+		catch(Exception e){
+			throw e;
+		}
+		return us;
+	}
 }
