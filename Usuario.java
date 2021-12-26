@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="usuario")
 
-public class Usuario {
+public class Usuario implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idUser;
@@ -20,6 +20,14 @@ public class Usuario {
 	private String password;
 	@Column
 	private int rol;
+	
+	public Usuario() {
+	}
+	
+	public Usuario(String user, String password) {
+		this.user = user;
+		this.password = password;
+	}
 	
 	public Long getIdUser() {
 		return idUser;
@@ -49,8 +57,4 @@ public class Usuario {
 	public String toString() {
 		return "Login [idUser=" + idUser + ", user=" + user + ", password=" + password + ", rol=" + rol + "]";
 	}
-	
-
-
 }
-
