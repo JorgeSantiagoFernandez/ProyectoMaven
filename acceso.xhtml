@@ -3,16 +3,20 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
-<meta charset="ISO-8859-1">
-<title>Inserte Usuario y contraseña</title>
+<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Iniciar sesion</title>
 </head>
 <body>
 	<h:form>
+	<h:panelGrid columns ="2">
 		<h:outputText value="Usuario"></h:outputText>
-		<h:inputText></h:inputText>
+		<h:inputText value="#{bibliotecaBean.usuario.user}"></h:inputText>
 		<h:outputText value="Password"></h:outputText>
-		<h:inputText></h:inputText>
-		<h:commandButton action="" value="Emtrar" />	
+		<h:inputText value="#{bibliotecaBean.usuario.password}"></h:inputText>
+		<h:commandButton action="#{bibliotecaBean.verificarDatos()}" value="Iniciar" />	
+	</h:panelGrid>
 	</h:form>
 
 </body>
