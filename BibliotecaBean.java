@@ -1,10 +1,12 @@
 package com.ecodeup.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -15,7 +17,7 @@ import com.ecodeup.model.Usuario;
 
 @ManagedBean (name="bibliotecaBean")
 @RequestScoped
-public class BibliotecaBean {
+public class BibliotecaBean implements Serializable {
 	
 	private Usuario usuario = new Usuario();
 	
@@ -66,27 +68,26 @@ public class BibliotecaBean {
 		return "/faces/index.xhtml";
 	}
 	
-	public String verificarDatos() throws Exception {
-		BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+	public String iniciarSesion() {
 		Usuario us;
-		String resultado;
+		BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+		String redireccion = null;
 		try {
-			us = bibliotecaDAO.verificarDatos(this.usuario);
+			us =bibliotecaDAO.iniciarSesion(usuario);
 			if(us!=null) {
-				FacesContext.getCurrentInstance().getExternalContext().
-				getSessionMap().put("usuario", us);
-				resultado = "/faces/index.xhtml";
+				redireccion = "/faces/index.xhtml";
 				}	
 			else
-				resultado="/faces/acceso.xhtml";
+				FacesContext.getCurrentInstance().addMessage
+				(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Aviso","Datos incorrectos"));
 			}
 		catch(Exception e) {
 			throw e;
 		}
-		return resultado;		
+		return redireccion;		
 	}
 	
-	public boolean verificarSesion() {
+	/*public boolean verificarSesion() {
 		boolean estado;
 		if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get(usuario) == null) {
@@ -95,7 +96,7 @@ public class BibliotecaBean {
 		else
 			estado=true;
 		return estado;
-	}
+	}*/
 	
 	public String cerrarSesion() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
