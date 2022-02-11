@@ -10,12 +10,14 @@
 </head>
 <body>
 	<h:form>
+	<h:message autoUpdate="true"/>
 	<h:panelGrid columns ="2">
-		<h:outputText value="Usuario"></h:outputText>
-		<h:inputText value="#{bibliotecaBean.usuario.user}"></h:inputText>
-		<h:outputText value="Password"></h:outputText>
-		<h:inputText value="#{bibliotecaBean.usuario.password}"></h:inputText>
-		<h:commandButton action="#{bibliotecaBean.verificarDatos()}" value="Iniciar" />	
+		<h:outputText for="txtUsuario" value="Usuario"></h:outputText>
+		<h:inputText id="txtUsuario" value="#{bibliotecaBean.usuario.user}" required="true"></h:inputText>
+		<h:outputText for="txtPassword" value="Password"></h:outputText>
+		<h:inputText id="txtPassword" value="#{bibliotecaBean.usuario.password}" required="true"></h:inputText>
+		<h:column></h:column>
+		<h:commandButton action="#{bibliotecaBean.iniciarSesion()}" value="Iniciar"/>	
 	</h:panelGrid>
 	</h:form>
 
