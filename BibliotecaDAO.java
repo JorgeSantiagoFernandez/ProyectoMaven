@@ -54,18 +54,23 @@ public class BibliotecaDAO {
 		listaBiblioteca = q.getResultList();
 		return listaBiblioteca;
 	}
-	
-	public Usuario verificarDatos(Usuario usuario) throws Exception {
-		Usuario us = null;
+
+	public Usuario iniciarSesion(Usuario us) {
+		Usuario usuario = null;
+		String consulta;
 		try {
-			Query q = entity.createQuery("FROM Usuario WHERE user = "+usuario.getUser()+ 
-					"and password = "+usuario.getPassword());
-			if(!q.getResultList().isEmpty())
-				us = (Usuario) q.getResultList().get(0);
+			consulta= "FROM Usuario u WHERE u.user=?1 AND u.password=?2";
+			Query q = entity.createQuery(consulta);
+			q.setParameter(1, us.getUser());
+			q.setParameter(2, us.getPassword());
+			List<Usuario> lista = q.getResultList();
+			if(!lista.isEmpty())
+				usuario=lista.get(0);		
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			throw e;
 		}
-		return us;
+		return usuario;
 	}
+	
 }
